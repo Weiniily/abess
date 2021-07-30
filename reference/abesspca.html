@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">abess</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -117,6 +117,9 @@
     </li>
     <li>
       <a href="../articles/v09-fasterSetting.html">Tips for faster computation</a>
+    </li>
+    <li>
+      <a href="../articles/v10-algorithm.html">ABESS algorithm: details</a>
     </li>
   </ul>
 </li>
@@ -279,6 +282,10 @@ solve this problem.
 By exploiting the warm-start initialization, the non-convex optimization 
 problem at different support size (specified by <code>support.size</code>) 
 can be efficiently solved.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>A polynomial algorithm for best-subset selection problem. Junxian Zhu, Canhong Wen, Jin Zhu, Heping Zhang, Xueqin Wang. Proceedings of the National Academy of Sciences Dec 2020, 117 (52) 33117-33123; DOI: 10.1073/pnas.2014241117</p>
+<p>Sparse principal component analysis. Hui Zou, Hastie Trevor, and Tibshirani Robert. Journal of computational and graphical statistics 15.2 (2006): 265-286.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='print.abesspca.html'>print.abesspca</a></code>, 
@@ -329,10 +336,10 @@ can be efficiently solved.</p>
 #&gt; abesspca(x = rob_cov, type = "gram")
 #&gt; 
 #&gt;   support.size       ev       pev
-#&gt; 1            1 6078.590 0.9866890
-#&gt; 2            2 6117.406 0.9929897
-#&gt; 3            3 6149.704 0.9982324
-#&gt; 4            4 6160.594 1.0000000</div><div class='input'>
+#&gt; 1            1 6432.811 0.9866358
+#&gt; 2            2 6471.177 0.9925202
+#&gt; 3            3 6507.091 0.9980286
+#&gt; 4            4 6519.945 1.0000000</div><div class='input'>
 <span class='co'>## K-component principal component analysis</span>
 <span class='va'>pca_fit</span> <span class='op'>&lt;-</span> <span class='fu'>abesspca</span><span class='op'>(</span><span class='va'>USArrests</span>, sparse.type <span class='op'>=</span> <span class='st'>"kpc"</span>, 
                     support.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
