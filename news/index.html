@@ -8,6 +8,13 @@
 
 <title>Changelog • abess</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -37,9 +44,16 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
 
 <meta property="og:title" content="Changelog" />
+<meta property="og:image" content="https://abess-team.github.io/abess/logo.svg" />
 
 
 
@@ -120,6 +134,9 @@
     <li>
       <a href="../articles/v10-algorithm.html">ABESS algorithm: details</a>
     </li>
+    <li>
+      <a href="../articles/v11-power-of-abess.html">Power of abess</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -135,6 +152,12 @@
 </li>
       </ul>
       
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -147,12 +170,21 @@
   <div class="col-md-9 contents">
     <div class="page-header">
       <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/abess-team/abess/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+      <small>Source: <a href='https://github.com/abess-team/abess/tree/master/R-package/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="abess-030" class="section level1">
+<h1 class="page-header" data-toc-text="0.3.0">
+<a href="#abess-030" class="anchor"></a>abess 0.3.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>Add docs2search for R’s website</li>
+<li>Support important searching to improve computational efficiency when dimension is 10,000.</li>
+</ul>
+</div>
     <div id="abess-020" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
-<a href="#abess-020" class="anchor"></a>abess 0.2.0<small> Unreleased </small>
+<a href="#abess-020" class="anchor"></a>abess 0.2.0<small> 2021-07-31 </small>
 </h1>
 <ul>
 <li>Support sparse matrix as input</li>
@@ -169,7 +201,11 @@
 <a href="#abess-010" class="anchor"></a>abess 0.1.0<small> 2021-04-21 </small>
 </h1>
 <ul>
-<li>Initial abess package</li>
+<li>Initial stable version abess package</li>
+<li>Support best subset selection for linear regression, logistic regression, poisson regression, cox proportional hazard regression, multi-gaussian regression, multi-nomial regression.</li>
+<li>Support nuisance selection as a generic component</li>
+<li>Unified API for cross validation and information criterion to select the optimal support size.</li>
+<li>A documentation website is support for <em>abess</em> package</li>
 </ul>
 </div>
   </div>
@@ -196,6 +232,23 @@
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'd32715b0e35635336aba6377dd751e21',
+    indexName: 'abess',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

@@ -8,6 +8,13 @@
 
 <title>Extract Model Coefficients from a fitted "abess" object. — coef.abess • abess</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -37,11 +44,18 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
 
 <meta property="og:title" content="Extract Model Coefficients from a fitted "abess" object. — coef.abess" />
 <meta property="og:description" content="This function provides estimated
 coefficients from a fitted &quot;abess&quot; object." />
+<meta property="og:image" content="https://abess-team.github.io/abess/logo.svg" />
 
 
 
@@ -122,6 +136,9 @@ coefficients from a fitted &quot;abess&quot; object." />
     <li>
       <a href="../articles/v10-algorithm.html">ABESS algorithm: details</a>
     </li>
+    <li>
+      <a href="../articles/v11-power-of-abess.html">Power of abess</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -137,6 +154,12 @@ coefficients from a fitted &quot;abess&quot; object." />
 </li>
       </ul>
       
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -149,7 +172,7 @@ coefficients from a fitted &quot;abess&quot; object." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Extract Model Coefficients from a fitted "<code>abess</code>" object.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/abess-team/abess/blob/master/R/coef.abess.R'><code>R/coef.abess.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/abess-team/abess/tree/master/R-package/R/coef.abess.R'><code>R/coef.abess.R</code></a></small>
     <div class="hidden name"><code>coef.abess.Rd</code></div>
     </div>
 
@@ -170,9 +193,9 @@ coefficients from a fitted "<code>abess</code>" object.</p>
     </tr>
     <tr>
       <th>support.size</th>
-      <td><p>An integer vector specifies 
-the coefficient fitted at given <code>support.size</code>. 
-If <code>support.size = NULL</code>, then all coefficients would be returned. 
+      <td><p>An integer vector specifies
+the coefficient fitted at given <code>support.size</code>.
+If <code>support.size = NULL</code>, then all coefficients would be returned.
 Default: <code>support.size = NULL</code>.</p></td>
     </tr>
     <tr>
@@ -188,14 +211,14 @@ presented as sparse matrix or not. Default: <code>sparse = TRUE</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A coefficient matrix when fitting an univariate model including gaussian, binomial, poisson, and cox; 
-otherwise, a list containing coefficient matrices. 
+    <p>A coefficient matrix when fitting an univariate model including gaussian, binomial, poisson, and cox;
+otherwise, a list containing coefficient matrices.
 For a coefficient matrix, each row is a variable, and each column is a support size.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='print.abess.html'>print.abess</a></code>, 
-<code><a href='predict.abess.html'>predict.abess</a></code>, 
-<code>coef.abess</code>, 
+    <div class='dont-index'><p><code><a href='print.abess.html'>print.abess</a></code>,
+<code><a href='predict.abess.html'>predict.abess</a></code>,
+<code>coef.abess</code>,
 <code><a href='extract.html'>extract.abess</a></code>,
 <code><a href='plot.abess.html'>plot.abess</a></code>,
 <code><a href='deviance.abess.html'>deviance.abess</a></code>.</p></div>
@@ -222,6 +245,23 @@ For a coefficient matrix, each row is a variable, and each column is a support s
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'd32715b0e35635336aba6377dd751e21',
+    indexName: 'abess',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

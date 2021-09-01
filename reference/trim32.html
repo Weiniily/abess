@@ -8,6 +8,13 @@
 
 <title>The Bardet-Biedl syndrome Gene expression data — trim32 • abess</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -37,10 +44,17 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
 
 <meta property="og:title" content="The Bardet-Biedl syndrome Gene expression data — trim32" />
 <meta property="og:description" content="Gene expression data (500 gene probes for 120 samples) from the microarray experiments of mammalianeye tissue samples of Scheetz et al. (2006)." />
+<meta property="og:image" content="https://abess-team.github.io/abess/logo.svg" />
 
 
 
@@ -121,6 +135,9 @@
     <li>
       <a href="../articles/v10-algorithm.html">ABESS algorithm: details</a>
     </li>
+    <li>
+      <a href="../articles/v11-power-of-abess.html">Power of abess</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -136,6 +153,12 @@
 </li>
       </ul>
       
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -148,7 +171,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>The Bardet-Biedl syndrome Gene expression data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/abess-team/abess/blob/master/R/abess-package.R'><code>R/abess-package.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/abess-team/abess/tree/master/R-package/R/abess-package.R'><code>R/abess-package.R</code></a></small>
     <div class="hidden name"><code>trim32.Rd</code></div>
     </div>
 
@@ -198,6 +221,23 @@ Trim32 is known to be linked with a genetic disorder called Bardet-Biedl Syndrom
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'd32715b0e35635336aba6377dd751e21',
+    indexName: 'abess',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>

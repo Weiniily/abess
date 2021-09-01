@@ -6,13 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Classification: Logistic Regression and Multinomial Extension • abess</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Classification: Logistic Regression and Multinomial Extension">
+<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Classification: Logistic Regression and Multinomial Extension">
 <meta property="og:description" content="abess">
+<meta property="og:image" content="https://abess-team.github.io/abess/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -80,6 +89,9 @@
     <li>
       <a href="../articles/v10-algorithm.html">ABESS algorithm: details</a>
     </li>
+    <li>
+      <a href="../articles/v11-power-of-abess.html">Power of abess</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -94,7 +106,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -111,7 +129,7 @@
             
             <h4 class="date">6/12/2021</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/abess-team/abess/blob/master/../vignettes/v03-classification.Rmd"><code>../vignettes/v03-classification.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/abess-team/abess/tree/master/R-package/../vignettes/v03-classification.Rmd"><code>../vignettes/v03-classification.Rmd</code></a></small>
       <div class="hidden name"><code>v03-classification.Rmd</code></div>
 
     </div>
@@ -206,11 +224,11 @@ i. print the fitted model:</p>
 ## 1            0 321.9560 64.59866
 ## 2            1 246.5820 49.99585
 ## 3            2 229.6078 46.65819
-## 4            3 224.0843 47.10830
-## 5            4 220.4441 45.75501
-## 6            5 220.1834 46.31422
-## 7            6 220.0022 46.45407
-## 8            7 219.9602 46.39486
+## 4            3 229.5308 46.99849
+## 5            4 228.9702 45.95916
+## 6            5 220.1834 45.34507
+## 7            6 220.0022 46.33689
+## 8            7 219.9602 46.31131
 ## 9            8 219.9189 46.44110</code></pre>
 <ol start="2" style="list-style-type: lower-roman">
 <li>draw the estimated coefficients on all candidate support size by <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> function:</li>
@@ -218,32 +236,32 @@ i. print the fitted model:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">abess_fit</span><span class="op">)</span></code></pre></div>
 <pre><code>## 9 x 9 sparse Matrix of class "dgCMatrix"
-##                      0         1          2           3           4           5
-## (intercept) -0.3530971  1.158781  2.9213405  4.23195962  4.76830133  4.85381841
-## Pclass       .          .        -0.7952709 -1.01705711 -1.03770046 -1.00849748
-## Sexmale      .         -2.545075 -2.5818944 -2.51198902 -2.60544821 -2.59656498
-## Age          .          .         .         -0.02923674 -0.03712932 -0.03672236
-## SibSp        .          .         .          .          -0.36190220 -0.35770269
-## Parch        .          .         .          .           .           .         
-## Fare         .          .         .          .           .           .         
-## EmbarkedQ    .          .         .          .           .           .         
-## EmbarkedS    .          .         .          .           .          -0.21507406
-##                        6            7            8
-## (intercept)  5.112850231  5.106984385  5.083420161
-## Pclass      -1.076524915 -1.080872131 -1.088719668
-## Sexmale     -2.610626365 -2.600190253 -2.598294580
-## Age         -0.037469961 -0.037121587 -0.037070495
-## SibSp       -0.339009696 -0.350547541 -0.352463114
-## Parch        .            0.048198887  0.051065952
-## Fare        -0.001998085 -0.002237775 -0.002189826
-## EmbarkedQ    .            .            0.209319058
-## EmbarkedS   -0.245365347 -0.255782101 -0.218658720</code></pre>
+##                      0         1          2            3            4
+## (intercept) -0.3530971  1.158781  2.9213405  3.051182847  3.261927133
+## Pclass       .          .        -0.7952709 -0.833342571 -0.814632215
+## Sexmale      .         -2.545075 -2.5818945 -2.593870590 -2.590161190
+## Age          .          .         .          .            .          
+## SibSp        .          .         .          .            .          
+## Parch        .          .         .          .            .          
+## Fare         .          .         .         -0.001187224 -0.001680436
+## EmbarkedQ    .          .         .          .            .          
+## EmbarkedS    .          .         .          .           -0.305263069
+##                       5            6            7            8
+## (intercept)  4.85381910  5.112858475  5.106984599  5.083420471
+## Pclass      -1.00849769 -1.076531449 -1.080872192 -1.088719756
+## Sexmale     -2.59656529 -2.610623038 -2.600190284 -2.598294614
+## Age         -0.03672237 -0.037469688 -0.037121588 -0.037070497
+## SibSp       -0.35770272 -0.339011574 -0.350547547 -0.352463118
+## Parch        .           .            0.048198898  0.051065967
+## Fare         .          -0.001997998 -0.002237776 -0.002189827
+## EmbarkedQ    .           .            .            0.209319089
+## EmbarkedS   -0.21507393 -0.245372362 -0.255782097 -0.218658720</code></pre>
 <ol start="3" style="list-style-type: lower-roman">
 <li>get the deviance of the estimated model on all candidate support size via <code><a href="https://rdrr.io/r/stats/deviance.html">deviance()</a></code> function:</li>
 </ol>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/deviance.html">deviance</a></span><span class="op">(</span><span class="va">abess_fit</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 321.9560 246.5820 229.6078 224.0843 220.4441 220.1834 220.0022 219.9602
+<pre><code>## [1] 321.9560 246.5820 229.6078 229.5308 228.9702 220.1834 220.0022 219.9602
 ## [9] 219.9189</code></pre>
 <ol start="4" style="list-style-type: lower-roman">
 <li>visualize the change of models with the change of support size via <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function:</li>
@@ -262,20 +280,20 @@ i. print the fitted model:</p>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">best.model</span><span class="op">)</span></code></pre></div>
 <pre><code>## List of 7
 ##  $ beta        :Formal class 'dgCMatrix' [package "Matrix"] with 6 slots
-##   .. ..@ i       : int [1:4] 0 1 2 3
+##   .. ..@ i       : int [1:4] 0 1 5 7
 ##   .. ..@ p       : int [1:2] 0 4
 ##   .. ..@ Dim     : int [1:2] 8 1
 ##   .. ..@ Dimnames:List of 2
 ##   .. .. ..$ : chr [1:8] "Pclass" "Sexmale" "Age" "SibSp" ...
 ##   .. .. ..$ : chr "4"
-##   .. ..@ x       : num [1:4] -1.0377 -2.6054 -0.0371 -0.3619
+##   .. ..@ x       : num [1:4] -0.81463 -2.59016 -0.00168 -0.30526
 ##   .. ..@ factors : list()
-##  $ intercept   : num 4.77
+##  $ intercept   : num 3.26
 ##  $ support.size: num 4
-##  $ support.vars: chr [1:4] "Pclass" "Sexmale" "Age" "SibSp"
-##  $ support.beta: num [1:4] -1.0377 -2.6054 -0.0371 -0.3619
-##  $ dev         : num 220
-##  $ tune.value  : num 45.8</code></pre>
+##  $ support.vars: chr [1:4] "Pclass" "Sexmale" "Fare" "EmbarkedS"
+##  $ support.beta: num [1:4] -0.81463 -2.59016 -0.00168 -0.30526
+##  $ dev         : num 229
+##  $ tune.value  : num 46</code></pre>
 <p>The return is a list containing the basic information of the estimated model.</p>
 </div>
 <div id="make-a-prediction" class="section level3">
@@ -289,8 +307,8 @@ i. print the fitted model:</p>
 <code class="sourceCode R"><span class="va">fitted.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">fitted.results</span> <span class="op">&gt;</span> <span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>
 <span class="va">misClasificError</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">fitted.results</span> <span class="op">!=</span> <span class="va">test</span><span class="op">$</span><span class="va">Survived</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'Accuracy'</span>,<span class="fl">1</span><span class="op">-</span><span class="va">misClasificError</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] "Accuracy 0.79746835443038"</code></pre>
-<p>We can also generate an ROC curve and calculate tha AUC value. On this dataset, the AUC is 0.87, which is quite close to 1.</p>
+<pre><code>## [1] "Accuracy 0.810126582278481"</code></pre>
+<p>We can also generate an ROC curve and calculate the AUC value. On this dataset, the AUC is 0.87, which is quite close to 1.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ipa-tys.github.io/ROCR/">ROCR</a></span><span class="op">)</span>
 <span class="va">fitted.results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">abess_fit</span>, newx <span class="op">=</span> <span class="va">test</span>, type <span class="op">=</span> <span class="st">'response'</span><span class="op">)</span>
@@ -302,7 +320,7 @@ i. print the fitted model:</p>
 <code class="sourceCode R"><span class="va">auc</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://ipa-tys.github.io/ROCR/reference/performance.html">performance</a></span><span class="op">(</span><span class="va">pr</span>, measure <span class="op">=</span> <span class="st">"auc"</span><span class="op">)</span>
 <span class="va">auc</span> <span class="op">&lt;-</span> <span class="va">auc</span><span class="op">@</span><span class="va">y.values</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">auc</span></code></pre></div>
-<pre><code>## [1] 0.8739505</code></pre>
+<pre><code>## [1] 0.8751124</code></pre>
 </div>
 </div>
 <div id="extension-multi-class-classification" class="section level2">
@@ -382,7 +400,20 @@ i. print the fitted model:</p>
 </div>
 
   
-
-
-  </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script><script>
+  docsearch({
+    
+    
+    apiKey: 'd32715b0e35635336aba6377dd751e21',
+    indexName: 'abess',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+</body>
 </html>

@@ -8,6 +8,13 @@
 
 <title>Adaptive best subset selection for principal component analysis — abesspca • abess</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -37,10 +44,17 @@
 <script src="../pkgdown.js"></script>
 
 
+<!-- docsearch -->
+<script src="../docsearch.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
 
 
 <meta property="og:title" content="Adaptive best subset selection for principal component analysis — abesspca" />
 <meta property="og:description" content="Adaptive best subset selection for principal component analysis" />
+<meta property="og:image" content="https://abess-team.github.io/abess/logo.svg" />
 
 
 
@@ -121,6 +135,9 @@
     <li>
       <a href="../articles/v10-algorithm.html">ABESS algorithm: details</a>
     </li>
+    <li>
+      <a href="../articles/v11-power-of-abess.html">Power of abess</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -136,6 +153,12 @@
 </li>
       </ul>
       
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -148,7 +171,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Adaptive best subset selection for principal component analysis</h1>
-    <small class="dont-index">Source: <a href='https://github.com/abess-team/abess/blob/master/R/abesspca.R'><code>R/abesspca.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/abess-team/abess/tree/master/R-package/R/abesspca.R'><code>R/abesspca.R</code></a></small>
     <div class="hidden name"><code>abesspca.Rd</code></div>
     </div>
 
@@ -162,7 +185,7 @@
   sparse.type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fpc"</span>, <span class='st'>"kpc"</span><span class='op'>)</span>,
   cor <span class='op'>=</span> <span class='cn'>FALSE</span>,
   support.size <span class='op'>=</span> <span class='cn'>NULL</span>,
-  c.max <span class='op'>=</span> <span class='fl'>2</span>,
+  c.max <span class='op'>=</span> <span class='cn'>NULL</span>,
   lambda <span class='op'>=</span> <span class='fl'>0</span>,
   always.include <span class='op'>=</span> <span class='cn'>NULL</span>,
   group.index <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -177,44 +200,44 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A matrix object. It can be either a predictor matrix 
-where each row is an observation and each column is a predictor or 
-a sample covariance/correlation matrix. 
-If <code>x</code> is a predictor matrix, it can be in sparse matrix format 
+      <td><p>A matrix object. It can be either a predictor matrix
+where each row is an observation and each column is a predictor or
+a sample covariance/correlation matrix.
+If <code>x</code> is a predictor matrix, it can be in sparse matrix format
 (inherit from class <code>"dgCMatrix"</code> in package <code>Matrix</code>).</p></td>
     </tr>
     <tr>
       <th>type</th>
-      <td><p>If <code>type = "predictor"</code>, <code>x</code> is considered as the predictor matrix. 
+      <td><p>If <code>type = "predictor"</code>, <code>x</code> is considered as the predictor matrix.
 If <code>type = "gram"</code>, <code>x</code> is considered as a sample covariance or correlation matrix.</p></td>
     </tr>
     <tr>
       <th>sparse.type</th>
-      <td><p>If <code>sparse.type = "fpc"</code>, then best subset selection performs on the first principal component; 
+      <td><p>If <code>sparse.type = "fpc"</code>, then best subset selection performs on the first principal component;
 If <code>sparse.type = "kpc"</code>, then best subset selection performs on the first \(K\) principal components.</p></td>
     </tr>
     <tr>
       <th>cor</th>
-      <td><p>A logical value. If <code>cor = TRUE</code>, perform PCA on the correlation matrix; 
-otherwise, the covariance matrix. 
-This option is available only if <code>type = "predictor"</code>. 
+      <td><p>A logical value. If <code>cor = TRUE</code>, perform PCA on the correlation matrix;
+otherwise, the covariance matrix.
+This option is available only if <code>type = "predictor"</code>.
 Default: <code>cor = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>support.size</th>
-      <td><p>An integer vector. It represents the alternative support sizes when <code>sparse.type = "fpc"</code>, 
-while each support size controls the sparsity of a principal component when <code>sparse.type = "kpc"</code>. 
-When <code>sparse.type = "fpc"</code> but <code>support.size</code> is not supplied, 
+      <td><p>An integer vector. It represents the alternative support sizes when <code>sparse.type = "fpc"</code>,
+while each support size controls the sparsity of a principal component when <code>sparse.type = "kpc"</code>.
+When <code>sparse.type = "fpc"</code> but <code>support.size</code> is not supplied,
 it is set as <code>support.size = 1:min(ncol(x), 100)</code> if <code>group.index = NULL</code>;
-otherwise, <code>support.size = 1:min(length(unique(group.index)), 100)</code>. 
-When <code>sparse.type = "kpc"</code> but <code>support.size</code> is not supplied, 
-then for 20% principal components, 
+otherwise, <code>support.size = 1:min(length(unique(group.index)), 100)</code>.
+When <code>sparse.type = "kpc"</code> but <code>support.size</code> is not supplied,
+then for 20% principal components,
 it is set as <code><a href='https://rdrr.io/r/base/Extremes.html'>min(ncol(x), 100)</a></code> if <code>group.index = NULL</code>;
 otherwise, <code><a href='https://rdrr.io/r/base/Extremes.html'>min(length(unique(group.index)), 100)</a></code>.</p></td>
     </tr>
     <tr>
       <th>c.max</th>
-      <td><p>an integer splicing size. Default is: <code>c.max = 2</code>.</p></td>
+      <td><p>an integer splicing size. The default of <code>c.max</code> is the maximum of 2 and <code>max(support.size) / 2</code>.</p></td>
     </tr>
     <tr>
       <th>lambda</th>
@@ -235,16 +258,16 @@ please set <code>group.index = NULL</code> (the default).</p></td>
     </tr>
     <tr>
       <th>splicing.type</th>
-      <td><p>Optional type for splicing. 
-If <code>splicing.type = 1</code>, the number of variables to be spliced is 
-<code>c.max</code>, ..., <code>1</code>; if <code>splicing.type = 2</code>, 
+      <td><p>Optional type for splicing.
+If <code>splicing.type = 1</code>, the number of variables to be spliced is
+<code>c.max</code>, ..., <code>1</code>; if <code>splicing.type = 2</code>,
 the number of variables to be spliced is <code>c.max</code>, <code>c.max/2</code>, ..., <code>1</code>.
 Default: <code>splicing.type = 1</code>.</p></td>
     </tr>
     <tr>
       <th>max.splicing.iter</th>
-      <td><p>The maximum number of performing splicing algorithm. 
-In most of the case, only a few times of splicing iteration can guarantee the convergence. 
+      <td><p>The maximum number of performing splicing algorithm.
+In most of the case, only a few times of splicing iteration can guarantee the convergence.
 Default is <code>max.splicing.iter = 20</code>.</p></td>
     </tr>
     <tr>
@@ -260,27 +283,27 @@ Default is <code>max.splicing.iter = 20</code>.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A S3 <code>abesspca</code> class object, which is a <code>list</code> with the following components:</p>
-<dt>coef</dt><dd><p>A \(p\)-by-<code><a href='https://rdrr.io/r/base/length.html'>length(support.size)</a></code> loading matrix of sparse principal components (PC), 
+<dt>coef</dt><dd><p>A \(p\)-by-<code><a href='https://rdrr.io/r/base/length.html'>length(support.size)</a></code> loading matrix of sparse principal components (PC),
 where each row is a variable and each column is a support size;</p></dd>
 <dt>nvars</dt><dd><p>The number of variables.</p></dd>
 <dt>sparse.type</dt><dd><p>The same as input.</p></dd>
 <dt>support.size</dt><dd><p>The actual support.size values used. Note that it is not necessary the same as the input if the later have non-integer values or duplicated values.</p></dd>
 <dt>ev</dt><dd><p>A vector with size <code><a href='https://rdrr.io/r/base/length.html'>length(support.size)</a></code>. It records the explained variance at each support size.</p></dd>
 <dt>pev</dt><dd><p>A vector with the same length as <code>ev</code>. It records the percentage of explained variance at each support size.</p></dd>
-<dt>var.all</dt><dd><p>If <code>sparse.type = "fpc"</code>, 
-it is the total variance of the explained by first principal component; 
+<dt>var.all</dt><dd><p>If <code>sparse.type = "fpc"</code>,
+it is the total variance of the explained by first principal component;
 otherwise, the total standard deviations of all principal components.</p></dd>
 <dt>call</dt><dd><p>The original call to <code>abess</code>.</p></dd>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Adaptive best subset selection for principal component analysis aim 
+    <p>Adaptive best subset selection for principal component analysis aim
 to solve the non-convex optimization problem:
 $$\arg\max_{v} v^\top \Sigma v, s.t.\quad v^\top v=1, \|v\|_0 \leq s, $$
-where \(s\) is support size. A generic splicing technique is implemented to 
-solve this problem. 
-By exploiting the warm-start initialization, the non-convex optimization 
-problem at different support size (specified by <code>support.size</code>) 
+where \(s\) is support size. A generic splicing technique is implemented to
+solve this problem.
+By exploiting the warm-start initialization, the non-convex optimization
+problem at different support size (specified by <code>support.size</code>)
 can be efficiently solved.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -288,7 +311,7 @@ can be efficiently solved.</p>
 <p>Sparse principal component analysis. Hui Zou, Hastie Trevor, and Tibshirani Robert. Journal of computational and graphical statistics 15.2 (2006): 265-286.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='print.abesspca.html'>print.abesspca</a></code>, 
+    <div class='dont-index'><p><code><a href='print.abesspca.html'>print.abesspca</a></code>,
 <code><a href='coef.abesspca.html'>coef.abesspca</a></code>,</p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
@@ -299,7 +322,7 @@ can be efficiently solved.</p>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/abess-team/abess'>abess</a></span><span class='op'>)</span>
 
 <span class='co'>## predictor matrix input:</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span>  
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            Murder Assault UrbanPop Rape
 #&gt; Alabama      13.2     236       58 21.2
 #&gt; Alaska       10.0     263       48 44.5
@@ -336,21 +359,22 @@ can be efficiently solved.</p>
 #&gt; abesspca(x = rob_cov, type = "gram")
 #&gt; 
 #&gt;   support.size       ev       pev
-#&gt; 1            1 6432.811 0.9866358
-#&gt; 2            2 6471.177 0.9925202
-#&gt; 3            3 6507.091 0.9980286
-#&gt; 4            4 6519.945 1.0000000</div><div class='input'>
+#&gt; 1            1 6438.654 0.9861075
+#&gt; 2            2 6477.382 0.9920388
+#&gt; 3            3 6515.560 0.9978861
+#&gt; 4            4 6529.363 1.0000000</div><div class='input'>
 <span class='co'>## K-component principal component analysis</span>
-<span class='va'>pca_fit</span> <span class='op'>&lt;-</span> <span class='fu'>abesspca</span><span class='op'>(</span><span class='va'>USArrests</span>, sparse.type <span class='op'>=</span> <span class='st'>"kpc"</span>, 
-                    support.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>pca_fit</span> <span class='op'>&lt;-</span> <span class='fu'>abesspca</span><span class='op'>(</span><span class='va'>USArrests</span>,
+  sparse.type <span class='op'>=</span> <span class='st'>"kpc"</span>,
+  support.size <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>
+<span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span><span class='op'>(</span><span class='va'>pca_fit</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; 4 x 2 sparse Matrix of class "dgCMatrix"
 #&gt;          1          2
 #&gt; Murder   .  .        
 #&gt; Assault  1  .        
 #&gt; UrbanPop . -0.9320592
-#&gt; Rape     . -0.3623060</div><div class='input'>
-<span class='co'># }</span>
+#&gt; Rape     . -0.3623060</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -374,6 +398,23 @@ can be efficiently solved.</p>
    </div>
 
   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.js" integrity="sha256-GKvGqXDznoRYHCwKXGnuchvKSwmx9SRMrZOTh2g4Sb0=" crossorigin="anonymous"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: 'd32715b0e35635336aba6377dd751e21',
+    indexName: 'abess',
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
+  });
+</script>
+
 
 
   </body>
