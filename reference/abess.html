@@ -88,7 +88,7 @@ multi-response modeling in polynomial times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">abess</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -204,11 +204,12 @@ multi-response modeling in polynomial times.</p>
   important.search <span class='op'>=</span> <span class='cn'>NULL</span>,
   warm.start <span class='op'>=</span> <span class='cn'>TRUE</span>,
   nfolds <span class='op'>=</span> <span class='fl'>5</span>,
-  cov.update <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  cov.update <span class='op'>=</span> <span class='cn'>FALSE</span>,
   newton <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exact"</span>, <span class='st'>"approx"</span><span class='op'>)</span>,
   newton.thresh <span class='op'>=</span> <span class='fl'>1e-06</span>,
   max.newton.iter <span class='op'>=</span> <span class='cn'>NULL</span>,
   early.stop <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  ic.scale <span class='op'>=</span> <span class='fl'>1</span>,
   num.threads <span class='op'>=</span> <span class='fl'>0</span>,
   seed <span class='op'>=</span> <span class='fl'>1</span>,
   <span class='va'>...</span>
@@ -334,7 +335,7 @@ marginal maximum likelihood estimator before running algorithm.</p></td>
       <td><p>An integer number indicating the number of 
 important variables to be splicing. 
 When <code>important.search</code> \(\ll\) <code>p</code> variables, 
-it would greatly reduce runtimes. Default: <code>important.search = 1000</code>.</p></td>
+it would greatly reduce runtimes. Default: <code>important.search = 128</code>.</p></td>
     </tr>
     <tr>
       <th>warm.start</th>
@@ -348,8 +349,8 @@ it would greatly reduce runtimes. Default: <code>important.search = 1000</code>.
       <th>cov.update</th>
       <td><p>A logical value only used for <code>family = "gaussian"</code>. If <code>cov.update = TRUE</code>,
 use a covariance-based implementation; otherwise, a naive implementation.
-The naive method is more efficient than covariance-based method only when \(p &gt;&gt; n\).
-Default: <code>cov.update = TRUE</code>.</p></td>
+The naive method is more efficient than covariance-based method when \(p &gt;&gt; n\) and <code>important.search</code> is much large than its default value.
+Default: <code>cov.update = FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>newton</th>
@@ -374,6 +375,11 @@ Default is <code>max.newton.iter = 10</code> if <code>newton = "exact"</code>, a
       <td><p>A boolean value decide whether early stopping.
 If <code>early.stop = TRUE</code>, algorithm will stop if the last tuning value less than the existing one.
 Default: <code>early.stop = FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>ic.scale</th>
+      <td><p>A non-negative value used for multiplying the penalty term 
+in information criterion. Default: <code>ic.scale = 1</code>.</p></td>
     </tr>
     <tr>
       <th>num.threads</th>
@@ -795,7 +801,7 @@ we provide various criterion like GIC, AIC, BIC and cross-validation error to de
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jin Zhu, Kangkang Jiang, Yanhang Zhang, Liyuan Hu, Junhao Huang, Junxian Zhu, Canhong Wen, Heping Zhang, Xueqin Wang.</p>
+  <p>Developed by Jin Zhu, Liyuan Hu, Junhao Huang, Kangkang Jiang, Yanhang Zhang, Shiyun Lin, Junxian Zhu, Canhong Wen, Heping Zhang, Xueqin Wang.</p>
 </div>
 
 <div class="pkgdown">
