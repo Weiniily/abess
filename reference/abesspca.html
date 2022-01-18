@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">abess</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -61,6 +61,9 @@
     <li>
       <a href="../articles/v11-power-of-abess.html">Power of abess</a>
     </li>
+    <li>
+      <a href="../articles/v12-Robust-Principal-Component-Analysis.html">Robust Principal Component Analysis</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -101,13 +104,18 @@
   sparse.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fpc"</span>, <span class="st">"kpc"</span><span class="op">)</span>,
   cor <span class="op">=</span> <span class="cn">FALSE</span>,
   support.size <span class="op">=</span> <span class="cn">NULL</span>,
+  kpc.num <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">sparse.type</span> <span class="op">==</span> <span class="st">"fpc"</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,
+  tune.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"gic"</span>, <span class="st">"aic"</span>, <span class="st">"bic"</span>, <span class="st">"ebic"</span>, <span class="st">"cv"</span><span class="op">)</span>,
+  nfolds <span class="op">=</span> <span class="fl">5</span>,
+  foldid <span class="op">=</span> <span class="cn">NULL</span>,
+  ic.scale <span class="op">=</span> <span class="fl">1</span>,
   c.max <span class="op">=</span> <span class="cn">NULL</span>,
-  lambda <span class="op">=</span> <span class="fl">0</span>,
   always.include <span class="op">=</span> <span class="cn">NULL</span>,
   group.index <span class="op">=</span> <span class="cn">NULL</span>,
   splicing.type <span class="op">=</span> <span class="fl">1</span>,
   max.splicing.iter <span class="op">=</span> <span class="fl">20</span>,
   warm.start <span class="op">=</span> <span class="cn">TRUE</span>,
+  num.threads <span class="op">=</span> <span class="fl">0</span>,
   <span class="va">...</span>
 <span class="op">)</span></code></pre></div>
     </div>
@@ -125,26 +133,36 @@ If <code>x</code> is a predictor matrix, it can be in sparse matrix format
 If <code>type = "gram"</code>, <code>x</code> is considered as a sample covariance or correlation matrix.</p></dd>
 <dt>sparse.type</dt>
 <dd><p>If <code>sparse.type = "fpc"</code>, then best subset selection performs on the first principal component;
-If <code>sparse.type = "kpc"</code>, then best subset selection performs on the first \(K\) principal components.</p></dd>
+If <code>sparse.type = "kpc"</code>, then best subset selection would be sequentially performed on the first <code>kpc.num</code> number of principal components.
+If <code>kpc.num</code> is supplied, the default is <code>sparse.type = "kpc"</code>; otherwise, is <code>sparse.type = "fpc"</code>.</p></dd>
 <dt>cor</dt>
 <dd><p>A logical value. If <code>cor = TRUE</code>, perform PCA on the correlation matrix;
 otherwise, the covariance matrix.
 This option is available only if <code>type = "predictor"</code>.
 Default: <code>cor = FALSE</code>.</p></dd>
 <dt>support.size</dt>
-<dd><p>An integer vector. It represents the alternative support sizes when <code>sparse.type = "fpc"</code>,
-while each support size controls the sparsity of a principal component when <code>sparse.type = "kpc"</code>.
-When <code>sparse.type = "fpc"</code> but <code>support.size</code> is not supplied,
-it is set as <code>support.size = 1:min(ncol(x), 100)</code> if <code>group.index = NULL</code>;
-otherwise, <code>support.size = 1:min(length(unique(group.index)), 100)</code>.
-When <code>sparse.type = "kpc"</code> but <code>support.size</code> is not supplied,
-then for 20% principal components,
-it is set as <code>min(ncol(x), 100)</code> if <code>group.index = NULL</code>;
-otherwise, <code>min(length(unique(group.index)), 100)</code>.</p></dd>
+<dd><p>It is a flexible input. If it is an integer vector.
+It represents the support sizes to be considered for each principal component.
+If it is a <code>list</code> object containing <code>kpc.num</code> number of integer vectors,
+the i-th principal component consider the support size specified in the i-th element in the <code>list</code>.
+The default is <code>support.size = NULL</code>, and some rules in details section are used to specify <code>support.size</code>.</p></dd>
+<dt>kpc.num</dt>
+<dd><p>A integer decide the number of principal components to be sequentially considered.</p></dd>
+<dt>tune.type</dt>
+<dd><p>The type of criterion for choosing the support size.
+Available options are <code>"gic"</code>, <code>"ebic"</code>, <code>"bic"</code>, <code>"aic"</code> and <code>"cv"</code>.
+Default is <code>"gic"</code>.
+<code>tune.type = "cv"</code> is available only when <code>type = "predictor"</code>.</p></dd>
+<dt>nfolds</dt>
+<dd><p>The number of folds in cross-validation. Default is <code>nfolds = 5</code>.</p></dd>
+<dt>foldid</dt>
+<dd><p>an optional integer vector of values between 1, ..., nfolds identifying what fold each observation is in.
+The default <code>foldid = NULL</code> would generate a random foldid.</p></dd>
+<dt>ic.scale</dt>
+<dd><p>A non-negative value used for multiplying the penalty term
+in information criterion. Default: <code>ic.scale = 1</code>.</p></dd>
 <dt>c.max</dt>
 <dd><p>an integer splicing size. The default of <code>c.max</code> is the maximum of 2 and <code>max(support.size) / 2</code>.</p></dd>
-<dt>lambda</dt>
-<dd><p>A single lambda value for regularized best subset selection. Default is 0.</p></dd>
 <dt>always.include</dt>
 <dd><p>An integer vector containing the indexes of variables that should always be included in the model.</p></dd>
 <dt>group.index</dt>
@@ -166,6 +184,11 @@ In most of the case, only a few times of splicing iteration can guarantee the co
 Default is <code>max.splicing.iter = 20</code>.</p></dd>
 <dt>warm.start</dt>
 <dd><p>Whether to use the last solution as a warm start. Default is <code>warm.start = TRUE</code>.</p></dd>
+<dt>num.threads</dt>
+<dd><p>An integer decide the number of threads to be
+concurrently used for cross-validation (i.e., <code>tune.type = "cv"</code>).
+If <code>num.threads = 0</code>, then all of available cores will be used.
+Default: <code>num.threads = 0</code>.</p></dd>
 <dt>...</dt>
 <dd><p>further arguments to be passed to or from methods.</p></dd>
 </dl></div>
@@ -183,42 +206,67 @@ where each row is a variable and each column is a support size;</p></dd>
 <dd><p>The actual support.size values used. Note that it is not necessary the same as the input if the later have non-integer values or duplicated values.</p></dd>
 <dt>ev</dt>
 <dd><p>A vector with size <code>length(support.size)</code>. It records the explained variance at each support size.</p></dd>
+<dt>tune.value</dt>
+<dd><p>A value of tuning criterion of length <code>length(support.size)</code>.</p></dd>
+<dt>kpc.num</dt>
+<dd><p>The number of principal component being considered.</p></dd>
+<dt>var.pc</dt>
+<dd><p>The variance of principal components obtained by performing standard PCA.</p></dd>
+<dt>cum.var.pc</dt>
+<dd><p>Cumulative sums of <code>var.pc</code>.</p></dd>
+<dt>var.all</dt>
+<dd><p>If <code>sparse.type = "fpc"</code>,
+it is the total standard deviations of all principal components.</p></dd>
 <dt>cum.ev</dt>
 <dd><p>Cumulative sums of explained variance.</p></dd>
 <dt>pev</dt>
-<dd><p>A vector with the same length as <code>ev</code>. It records the percentage of explained variance at each support size.</p></dd>
-<dt>cum.pev</dt>
-<dd><p>Cumulative sums of the percentage of explained variance.</p></dd>
-<dt>var.all</dt>
-<dd><p>If <code>sparse.type = "fpc"</code>,
-it is the total variance of the explained by first principal component;
-otherwise, the total standard deviations of all principal components.</p></dd>
+<dd><p>A vector with the same length as <code>ev</code>. It records the percent of explained variance (compared to <code>var.all</code>) at each support size.</p></dd>
+<dt>pev.pc</dt>
+<dd><p>It records the percent of explained variance (compared to <code>var.pc</code>) at each support size.</p></dd>
 <dt>call</dt>
 <dd><p>The original call to <code>abess</code>.</p></dd>
-</dl></div>
+</dl><p>It is worthy to note that, if <code>sparse.type == "kpc"</code>, the <code>ev</code>, <code>tune.value</code>, <code>pev</code> and <code>pev.pc</code> in list are <code>list</code> objects.</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Adaptive best subset selection for principal component analysis aim
+    <p>Adaptive best subset selection for principal component analysis (abessPCA) aim
 to solve the non-convex optimization problem:
-$$\arg\max_{v} v^\top \Sigma v, s.t.\quad v^\top v=1, \|v\|_0 \leq s, $$
-where \(s\) is support size. 
-Here, \(\Sigma\) is covariance matrix, i.e., 
+$$-\arg\min_{v} v^\top \Sigma v, s.t.\quad v^\top v=1, \|v\|_0 \leq s, $$
+where \(s\) is support size.
+Here, \(\Sigma\) is covariance matrix, i.e.,
 $$\Sigma = \frac{1}{n} X^{\top} X.$$
 A generic splicing technique is implemented to
 solve this problem.
 By exploiting the warm-start initialization, the non-convex optimization
 problem at different support size (specified by <code>support.size</code>)
 can be efficiently solved.</p>
+<p>The abessPCA can be conduct sequentially for each component.
+Please see the multiple principal components Section on the <a href="https://abess-team.github.io/abess/articles/v08-sPCA.html">webite</a>
+for more details about this function.
+For <code>abesspca</code> function, the arguments <code>kpc.num</code> control the number of components to be consider.</p>
+<p>When <code>sparse.type = "fpc"</code> but <code>support.size</code> is not supplied,
+it is set as <code>support.size = 1:min(ncol(x), 100)</code> if <code>group.index = NULL</code>;
+otherwise, <code>support.size = 1:min(length(unique(group.index)), 100)</code>.
+When <code>sparse.type = "kpc"</code> but <code>support.size</code> is not supplied,
+then for 20\<!-- % principal components, -->
+it is set as <code>min(ncol(x), 100)</code> if <code>group.index = NULL</code>;
+otherwise, <code>min(length(unique(group.index)), 100)</code>.</p>
+    </div>
+    <div id="note">
+    <h2>Note</h2>
+    <p>Some parameters not described in the Details Section is explained in the document for <code><a href="abess.html">abess</a></code>
+because the meaning of these parameters are very similar.</p>
     </div>
     <div id="references">
     <h2>References</h2>
-    <p>A polynomial algorithm for best-subset selection problem. Junxian Zhu, Canhong Wen, Jin Zhu, Heping Zhang, Xueqin Wang. Proceedings of the National Academy of Sciences Dec 2020, 117 (52) 33117-33123; DOI: 10.1073/pnas.2014241117</p>
-<p>Sparse principal component analysis. Hui Zou, Hastie Trevor, and Tibshirani Robert. Journal of computational and graphical statistics 15.2 (2006): 265-286.</p>
+    <p>A polynomial algorithm for best-subset selection problem. Junxian Zhu, Canhong Wen, Jin Zhu, Heping Zhang, Xueqin Wang. Proceedings of the National Academy of Sciences Dec 2020, 117 (52) 33117-33123; doi: <a href="https://doi.org/10.1073/pnas.2014241117" class="external-link">10.1073/pnas.2014241117</a></p>
+<p>Sparse principal component analysis. Hui Zou, Hastie Trevor, and Tibshirani Robert. Journal of computational and graphical statistics 15.2 (2006): 265-286. doi: <a href="https://doi.org/10.1198/106186006X113430" class="external-link">10.1198/106186006X113430</a></p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index"><p><code><a href="print.abesspca.html">print.abesspca</a></code>,
-<code><a href="coef.abesspca.html">coef.abesspca</a></code>,</p></div>
+<code><a href="coef.abesspca.html">coef.abesspca</a></code>,
+<code><a href="plot.abesspca.html">plot.abesspca</a></code>.</p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
@@ -244,24 +292,26 @@ can be efficiently solved.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> abesspca(x = USArrests)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   support.size       ev       pev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1 6806.262 0.9564520</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2            2 6844.578 0.9618364</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3            3 6858.954 0.9638565</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4            4 6870.893 0.9655342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   PC support.size       ev       pev</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1            1 6806.262 0.9564520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1            2 6844.578 0.9618364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1            3 6858.954 0.9638565</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1            4 6870.893 0.9655342</span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pca_fit</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="abesspca-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## covariance matrix input:</span></span>
 <span class="r-in"><span class="va">cov_mat</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></span><span class="op">(</span><span class="va">USArrests</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">USArrests</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">USArrests</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">pca_fit</span> <span class="op">&lt;-</span> <span class="fu">abesspca</span><span class="op">(</span><span class="va">cov_mat</span>, type <span class="op">=</span> <span class="st">"gram"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">pca_fit</span>  </span>
+<span class="r-in"><span class="va">pca_fit</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> abesspca(x = cov_mat, type = "gram")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   support.size       ev       pev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1 6806.262 0.9564520</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2            2 6844.578 0.9618364</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3            3 6858.954 0.9638565</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4            4 6870.893 0.9655342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   PC support.size       ev       pev</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1            1 6806.262 0.9564520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1            2 6844.578 0.9618364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1            3 6858.954 0.9638565</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1            4 6870.893 0.9655342</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## robust covariance matrix input:</span></span>
 <span class="r-in"><span class="va">rob_cov</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/cov.rob.html" class="external-link">cov.rob</a></span><span class="op">(</span><span class="va">USArrests</span><span class="op">)</span><span class="op">[[</span><span class="st">"cov"</span><span class="op">]</span><span class="op">]</span></span>
@@ -271,24 +321,48 @@ can be efficiently solved.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> abesspca(x = rob_cov, type = "gram")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   support.size       ev       pev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1            1 6370.618 0.9600710</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2            2 6398.994 0.9643473</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3            3 6420.002 0.9675133</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4            4 6432.771 0.9694375</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   PC support.size       ev       pev</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1            1 5325.728 0.9538598</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1            2 5364.802 0.9608581</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1            3 5393.565 0.9660097</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1            4 5405.370 0.9681241</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">## K-component principal component analysis</span></span>
 <span class="r-in"><span class="va">pca_fit</span> <span class="op">&lt;-</span> <span class="fu">abesspca</span><span class="op">(</span><span class="va">USArrests</span>,</span>
 <span class="r-in">  sparse.type <span class="op">=</span> <span class="st">"kpc"</span>,</span>
-<span class="r-in">  support.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span class="r-in">  support.size <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span></span>
 <span class="r-in"><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">pca_fit</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 x 2 sparse Matrix of class "dgCMatrix"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          1          2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Murder   .  .        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Assault  1  .        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> UrbanPop . -0.9320592</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rape     . -0.3623060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 x 4 sparse Matrix of class "dgCMatrix"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          1           2           3           4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Murder   .  .           .          -0.04170432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Assault  1 -0.99717739 -0.99608572 -0.99522128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> UrbanPop .  .          -0.04643219 -0.04633575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rape     . -0.07508168 -0.07521497 -0.07515550</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 x 4 sparse Matrix of class "dgCMatrix"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          1          2           3           4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Murder   .  .          .          -0.04482166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Assault  .  .          0.05893033 -0.05876003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> UrbanPop 1 -0.9795841 -0.97767271  0.97685748</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rape     . -0.2010350 -0.20170097  0.20071807</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pca_fit</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="abesspca-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pca_fit</span>, <span class="st">"coef"</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="abesspca-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="abesspca-4.png" alt="" width="700" height="433"></span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co">## select support size via cross-validation ##</span></span>
+<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">500</span></span>
+<span class="r-in"><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
+<span class="r-in"><span class="va">support_size</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span class="r-in"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="generate.spc.matrix.html">generate.spc.matrix</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">p</span>, <span class="va">support_size</span>, snr <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">spca_fit</span> <span class="op">&lt;-</span> <span class="fu">abesspca</span><span class="op">(</span><span class="va">dataset</span><span class="op">[[</span><span class="st">"x"</span><span class="op">]</span><span class="op">]</span>, tune.type <span class="op">=</span> <span class="st">"cv"</span>, nfolds <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">spca_fit</span>, type <span class="op">=</span> <span class="st">"tune"</span><span class="op">)</span></span>
+<span class="r-plt img"><img src="abesspca-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
@@ -300,11 +374,11 @@ can be efficiently solved.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Jin Zhu, Liyuan Hu, Junhao Huang, Kangkang Jiang, Yanhang Zhang, Shiyun Lin, Junxian Zhu, Canhong Wen, Heping Zhang, Xueqin Wang.</p>
+  <p></p><p>Developed by Jin Zhu, Liyuan Hu, Junhao Huang, Kangkang Jiang, Yanhang Zhang, Zezhi Wang, Borui Tang, Shiyun Lin, Junxian Zhu, Canhong Wen, Heping Zhang, Xueqin Wang.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

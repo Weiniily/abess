@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">abess</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -61,6 +61,9 @@
     <li>
       <a href="../articles/v11-power-of-abess.html">Power of abess</a>
     </li>
+    <li>
+      <a href="../articles/v12-Robust-Principal-Component-Analysis.html">Robust Principal Component Analysis</a>
+    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">Changelog</a>
@@ -90,6 +93,14 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="0.4.0" id="abess-040">abess 0.4.0<small>2021-12-08</small><a class="anchor" aria-label="anchor" href="#abess-040"></a></h2>
+<ul><li>Support generalized linear model when the link function is Gamma distribution. By setting <code>family = "gamma"</code> in <code>abess</code> function, users can analyze the dataset with a positive valued and skewed response.</li>
+<li>Support flexible support size for sequential principal component analysis (PCA), accompanied with several helpful generic function like <code>plot</code>.</li>
+<li>Support user-specified cross validation division for <code>abess</code> and <code>abesspca</code> function by additional argument <code>foldid</code>.</li>
+<li>Support robust principal component analysis now. A new R function <code>abessrpca</code> can access it.</li>
+<li>Improve the R package document by: adding more details and giving more links related to core functions.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="0.3.0" id="abess-030">abess 0.3.0<small>2021-09-03</small><a class="anchor" aria-label="anchor" href="#abess-030"></a></h2>
 <ul><li>Add docs2search for R’s website</li>
 <li>Support important searching to improve computational efficiency when dimension is 10,000.</li>
@@ -107,7 +118,7 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.1.0" id="abess-010">abess 0.1.0<small>2021-04-21</small><a class="anchor" aria-label="anchor" href="#abess-010"></a></h2>
 <ul><li>Initial stable version abess package</li>
-<li>Support best subset selection for linear regression, logistic regression, poisson regression, cox proportional hazard regression, multi-gaussian regression, multi-nomial regression.</li>
+<li>Support best subset selection for linear regression, logistic regression, poisson regression, cox proportional hazard regression, multi-gaussian regression, multi-nominal regression.</li>
 <li>Support nuisance selection as a generic component</li>
 <li>Unified API for cross validation and information criterion to select the optimal support size.</li>
 <li>A documentation website is support for <em>abess</em> package</li>
@@ -122,11 +133,11 @@
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Jin Zhu, Liyuan Hu, Junhao Huang, Kangkang Jiang, Yanhang Zhang, Shiyun Lin, Junxian Zhu, Canhong Wen, Heping Zhang, Xueqin Wang.</p>
+  <p></p><p>Developed by Jin Zhu, Liyuan Hu, Junhao Huang, Kangkang Jiang, Yanhang Zhang, Zezhi Wang, Borui Tang, Shiyun Lin, Junxian Zhu, Canhong Wen, Heping Zhang, Xueqin Wang.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

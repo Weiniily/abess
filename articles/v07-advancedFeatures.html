@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">abess</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
       </span>
     </div>
 
@@ -87,6 +87,9 @@
     </li>
     <li>
       <a href="../articles/v11-power-of-abess.html">Power of abess</a>
+    </li>
+    <li>
+      <a href="../articles/v12-Robust-Principal-Component-Analysis.html">Robust Principal Component Analysis</a>
     </li>
   </ul>
 </li>
@@ -191,14 +194,14 @@
 <div class="section level2">
 <h2 id="regularized-adaptive-best-subset-selection">Regularized Adaptive Best Subset Selection<a class="anchor" aria-label="anchor" href="#regularized-adaptive-best-subset-selection"></a>
 </h2>
-<p>In some cases, especially under low signal-to-noise ratio (SNR) setting or predictors are highly correlated, the vallina type of <span class="math inline">\(L_0\)</span> constrained model may not be satisfying and a more sophisticated trade-off between bias and variance is needed. Under this concern, the <code>abess</code> package provides option of best subset selection with <span class="math inline">\(L_2\)</span> norm regularization called the regularized bess. The model has this following form:</p>
+<p>In some cases, especially under low signal-to-noise ratio (SNR) setting or predictors are highly correlated, the vallina type of <span class="math inline">\(L_0\)</span> constrained model may not be satisfying and a more sophisticated trade-off between bias and variance is needed. Under this concern, the <code>abess</code> package provides option of best subset selection with <span class="math inline">\(L_2\)</span> norm regularization called the regularized best subset selection (BESS). The model has this following form:</p>
 <p><span class="math display">\[\begin{align}
 \min_\beta L(\beta) + \lambda \|\beta\|_2^2
 \end{align}\]</span></p>
 <div class="section level3">
 <h3 id="carrying-out-the-regularized-bess">Carrying out the Regularized Bess<a class="anchor" aria-label="anchor" href="#carrying-out-the-regularized-bess"></a>
 </h3>
-<p>To implement the regularized bess, user need to specify a value to the <code>lambda</code> in the <code><a href="../reference/abess.html">abess()</a></code> function. This <code>lambda</code> value corresponds to the penalization parameter in the model above. Here we give an example.</p>
+<p>To implement the regularized BESS, user need to specify a value to the <code>lambda</code> in the <code><a href="../reference/abess.html">abess()</a></code> function. This <code>lambda</code> value corresponds to the penalization parameter in the model above. Here we give an example.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/abess-team/abess" class="external-link">abess</a></span><span class="op">)</span>
 <span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">100</span>
@@ -229,7 +232,7 @@
 <span class="op">}</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">err.l0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] 111.8251</span></code></pre>
+<pre><code><span class="co">## [1] 136.7881</span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">err.l0l2</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## [1] 151.4285</span></code></pre>
@@ -312,8 +315,8 @@
 <span class="co">##  $ support.size: int 2</span>
 <span class="co">##  $ support.vars: chr [1:3] "x1" "x2" "x3"</span>
 <span class="co">##  $ support.beta: num [1:3] 10.2 4.92 4.88</span>
-<span class="co">##  $ dev         : num 16.6</span>
-<span class="co">##  $ tune.value  : num 294</span></code></pre>
+<span class="co">##  $ dev         : num 8.3</span>
+<span class="co">##  $ tune.value  : num 225</span></code></pre>
 <p>The fitted result suggest that only two groups are selected (since <code>support.size</code> is 2) and the selected variables are matched with the ground truth setting.</p>
 </div>
 </div>
@@ -350,12 +353,12 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Jin Zhu, Liyuan Hu, Junhao Huang, Kangkang Jiang, Yanhang Zhang, Shiyun Lin, Junxian Zhu, Canhong Wen, Heping Zhang, Xueqin Wang.</p>
+<p>Developed by Jin Zhu, Liyuan Hu, Junhao Huang, Kangkang Jiang, Yanhang Zhang, Zezhi Wang, Borui Tang, Shiyun Lin, Junxian Zhu, Canhong Wen, Heping Zhang, Xueqin Wang.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
