@@ -124,9 +124,9 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>ABESS algorithm: details</h1>
-                        <h4 data-toc-skip class="author">Jin Zhu</h4>
+                        <h4 data-toc-skip class="author">Jin Zhu, Yanhang Zhang</h4>
             
-            <h4 data-toc-skip class="date">7/22/2021</h4>
+            <h4 data-toc-skip class="date">1/20/2022</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/abess-team/abess/tree/master/R-package/../vignettes/v10-algorithm.Rmd" class="external-link"><code>../vignettes/v10-algorithm.Rmd</code></a></small>
       <div class="hidden name"><code>v10-algorithm.Rmd</code></div>
@@ -148,7 +148,7 @@
 </h3>
 <p>Consider the <span class="math inline">\(\ell_{0}\)</span> constraint minimization problem, <span class="math display">\[
 \min _{\boldsymbol{\beta}} \mathcal{L}_{n}(\boldsymbol{\beta}), \quad \text { s.t }\|\boldsymbol{\beta}\|_{0} \leq \mathrm{s},
-\]</span> where <span class="math inline">\(\mathcal{L}_{n}(\boldsymbol \beta)=\frac{1}{2 n}\|y-X \boldsymbol{\beta}\|_{2}^{2} .\)</span> Without loss of generality, we consider <span class="math inline">\(\|\boldsymbol{\beta}\|_{0}=\mathrm{s}\)</span>. Given any initial set <span class="math inline">\(\mathcal{A} \subset \mathcal{S}=\{1,2, \ldots, p\}\)</span> with cardinality <span class="math inline">\(|\mathcal{A}|=s\)</span>, denote <span class="math inline">\(\mathcal{I}=\mathcal{A}^{\mathrm{c}}\)</span> and compute <span class="math display">\[
+\]</span> where $<em>{n}()=|y-X |</em>{2}^{2}. $ Without loss of generality, we consider <span class="math inline">\(\|\boldsymbol{\beta}\|_{0}=\mathrm{s}\)</span>. Given any initial set <span class="math inline">\(\mathcal{A} \subset \mathcal{S}=\{1,2, \ldots, p\}\)</span> with cardinality <span class="math inline">\(|\mathcal{A}|=s\)</span>, denote <span class="math inline">\(\mathcal{I}=\mathcal{A}^{\mathrm{c}}\)</span> and compute <span class="math display">\[
 \hat{\boldsymbol{\beta}}=\arg \min _{\boldsymbol{\beta}_{\mathcal{I}}=0} \mathcal{L}_{n}(\boldsymbol{\beta}).
 \]</span> We call <span class="math inline">\(\mathcal{A}\)</span> and <span class="math inline">\(\mathcal{I}\)</span> as the active set and the inactive set, respectively.</p>
 <p>Given the active set <span class="math inline">\(\mathcal{A}\)</span> and <span class="math inline">\(\hat{\boldsymbol{\beta}}\)</span>, we can define the following two types of sacrifices:</p>
@@ -251,9 +251,23 @@
 </div>
 </div>
 </div>
-<div class="section level3">
-<h3 id="the-corresponding-notations-in-r-function-mathttabess">The corresponding notations in R function <span class="math inline">\(\mathtt{abess}\)</span><a class="anchor" aria-label="anchor" href="#the-corresponding-notations-in-r-function-mathttabess"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="group-linear-model">Group linear model<a class="anchor" aria-label="anchor" href="#group-linear-model"></a>
+</h2>
+<p>Group linear model is a linear model which the <span class="math inline">\(p\)</span> predictors are separated into <span class="math inline">\(J\)</span> pre-determined non-overlapping groups,</p>
+<p><span class="math display">\[
+y = \sum_{j=1}^J X_{G_i} \boldsymbol{\beta_{G_j}}+\epsilon.
+\]</span></p>
+<p>Consider the quadratic minimization problem with <span class="math inline">\(\ell_{0,2}\)</span> constraint, <span class="math display">\[
+\min _{\boldsymbol{{\boldsymbol\beta}}} \mathcal{L_n}({\boldsymbol\beta}), \quad \text { s.t }\|{{\boldsymbol\beta}}\|_{0,2} \leq \mathrm{s},
+\]</span> where the <span class="math inline">\(\ell_{0,2}\)</span> (-pseudo) norm is defined as <span class="math inline">\(\|{{\boldsymbol\beta}}\|_{0,2} = \sum_{j=1}^J \mathrm{I} (\|\boldsymbol{\beta_{G_j}}\|_2 \neq 0)\)</span>.</p>
+<!-- # Nuisance selection -->
+<!-- # Principal component analysis -->
+</div>
+<div class="section level2">
+<h2 id="the-corresponding-notations-in-abess-function">The corresponding notations in <code>abess()</code> function<a class="anchor" aria-label="anchor" href="#the-corresponding-notations-in-abess-function"></a>
+</h2>
 <table class="table">
 <colgroup>
 <col width="33%">
@@ -299,7 +313,6 @@
 </tr>
 </tbody>
 </table>
-</div>
 </div>
   </div>
 
