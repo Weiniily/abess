@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quick start for `abess`: Linear regression • abess</title>
+<title> • abess</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -19,7 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Quick start for `abess`: Linear regression">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="">
 <meta property="og:description" content="abess">
 <meta property="og:image" content="https://abess-team.github.io/abess/logo.svg">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -59,7 +59,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/v01-abess-guide.html">Quick start for `abess`: Linear regression</a>
+      <a href="../articles/v01-abess-guide.html">UNKNOWN TITLE</a>
     </li>
     <li>
       <a href="../articles/v03-classification.html">Classification: Logistic Regression and Multinomial Extension</a>
@@ -123,8 +123,7 @@
       </header><script src="v01-abess-guide_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Quick start for <code>abess</code>: Linear regression</h1>
-                        <h4 data-toc-skip class="author">Jin Zhu</h4>
+      <h1 data-toc-skip></h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/abess-team/abess/tree/master/R-package/../vignettes/v01-abess-guide.Rmd" class="external-link"><code>../vignettes/v01-abess-guide.Rmd</code></a></small>
@@ -134,10 +133,13 @@
 
     
     
+– title: “Quick start for <code>abess</code>: Linear regression” author: “Jin Zhu” output: html_document: toc: yes keep_md: yes self_contained: no pdf_document: fig_caption: yes toc: yes toc_depth: 3 word_document: toc: yes keep_md: yes vignette: | % %
+
+<hr>
 <div class="section level2">
 <h2 id="briey-introduction">Briey introduction<a class="anchor" aria-label="anchor" href="#briey-introduction"></a>
 </h2>
-<p>The R package <code>abess</code> implement a polynomial algorithm in the <a href="https://www.pnas.org/content/117/52/33117" class="external-link"></a> for best-subset selection problem: <span class="math display">\[\min_{\beta \in \mathbb{R}^p} \frac{1}{2n} \| y - X\beta\|_2^2, \text{ subject to } \|\beta\|_0 \leq s,\]</span> where <span class="math inline">\(\| \cdot \|_2\)</span> is the <span class="math inline">\(\ell_2\)</span> norm, <span class="math inline">\(\|\beta\|_0=\sum_{i=1}^pI( \beta_i\neq 0)\)</span> is the <span class="math inline">\(\ell_0\)</span> norm of <span class="math inline">\(\beta\)</span>, and the sparsity level <span class="math inline">\(s\)</span> is usually an unknown non-negative integer. Next, we present an example to show how to use the <strong>abess</strong> package to solve a simple problem.</p>
+<p>The R package <code>abess</code> implement a polynomial algorithm in the <a href="https://www.pnas.org/content/117/52/33117" class="external-link"></a> for best-subset selection problem: <span class="math display">\[\min_{\boldsymbol{\beta} \in \mathbb{R}^p} \mathcal{L_n}({\boldsymbol\beta}), \text{ s.t. } \|\beta\|_0 \leq s,\]</span> where <span class="math inline">\(\mathcal{L}_{n}(\boldsymbol \beta)=\frac{1}{2 n}\|y-X \boldsymbol{\beta}\|_{2}^{2}\)</span>, <span class="math inline">\(\| \cdot \|_2\)</span> is the <span class="math inline">\(\ell_2\)</span> norm, <span class="math inline">\(\|\boldsymbol{\beta}\|_0=\sum_{i=1}^pI( \boldsymbol{\beta}_i\neq 0)\)</span> is the <span class="math inline">\(\ell_0\)</span> norm of <span class="math inline">\(\beta\)</span>, and the sparsity level <span class="math inline">\(s\)</span> is usually an unknown non-negative integer. Next, we present an example to show how to use the <code>abess</code> package to solve a simple problem.</p>
 </div>
 <div class="section level2">
 <h2 id="quick-example">Quick example<a class="anchor" aria-label="anchor" href="#quick-example"></a>
