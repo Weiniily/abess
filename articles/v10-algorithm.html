@@ -248,22 +248,10 @@
 </li>
 <li><p>Output <span class="math inline">\(\left(\hat{\boldsymbol{\beta}}_{s_{\operatorname{min}}}, \hat{\boldsymbol{d}}_{s_{\min }}, \hat{A}_{s_{\min }}, \hat{\mathcal{I}}_{s_{\min }}\right) .\)</span></p></li>
 </ol>
+<!-- # Group linear model --><!-- Group linear model is a linear model which the $p$ predictors are separated into $J$ pre-determined non-overlapping groups, --><!-- $$ --><!-- y = \sum_{j=1}^J X_{G_i} \boldsymbol{\beta_{G_j}}+\epsilon. --><!-- $$ --><!-- Consider the quadratic minimization problem with $\ell_{0,2}$ constraint, --><!-- $$ --><!-- \min _{\boldsymbol{{\boldsymbol\beta}}} \mathcal{L_n}({\boldsymbol\beta}), \quad \text { s.t }\|{{\boldsymbol\beta}}\|_{0,2} \leq \mathrm{s}, --><!-- $$ --><!-- where the $\ell_{0,2}$ (-pseudo) norm is defined as $\|{{\boldsymbol\beta}}\|_{0,2} = \sum_{j=1}^J \mathrm{I} (\|\boldsymbol{\beta_{G_j}}\|_2 \neq 0)$. --><!-- # Nuisance selection --><!-- # Principal component analysis -->
 </div>
 </div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="group-linear-model">Group linear model<a class="anchor" aria-label="anchor" href="#group-linear-model"></a>
-</h2>
-<p>Group linear model is a linear model which the <span class="math inline">\(p\)</span> predictors are separated into <span class="math inline">\(J\)</span> pre-determined non-overlapping groups,</p>
-<p><span class="math display">\[
-y = \sum_{j=1}^J X_{G_i} \boldsymbol{\beta_{G_j}}+\epsilon.
-\]</span></p>
-<p>Consider the quadratic minimization problem with <span class="math inline">\(\ell_{0,2}\)</span> constraint, <span class="math display">\[
-\min _{\boldsymbol{{\boldsymbol\beta}}} \mathcal{L_n}({\boldsymbol\beta}), \quad \text { s.t }\|{{\boldsymbol\beta}}\|_{0,2} \leq \mathrm{s},
-\]</span> where the <span class="math inline">\(\ell_{0,2}\)</span> (-pseudo) norm is defined as <span class="math inline">\(\|{{\boldsymbol\beta}}\|_{0,2} = \sum_{j=1}^J \mathrm{I} (\|\boldsymbol{\beta_{G_j}}\|_2 \neq 0)\)</span>.</p>
-<!-- # Nuisance selection -->
-<!-- # Principal component analysis -->
 </div>
 <div class="section level2">
 <h2 id="the-corresponding-notations-in-abess-function">The corresponding notations in <code>abess()</code> function<a class="anchor" aria-label="anchor" href="#the-corresponding-notations-in-abess-function"></a>
@@ -275,41 +263,46 @@ y = \sum_{j=1}^J X_{G_i} \boldsymbol{\beta_{G_j}}+\epsilon.
 <col width="33%">
 </colgroup>
 <thead><tr class="header">
-<th align="center">Notations in algorithm</th>
-<th align="center">Parameters in <span class="math inline">\(\mathtt{abess}\)</span>
+<th align="left">Notations in algorithm</th>
+<th align="left">Parameters in <span class="math inline">\(\mathtt{abess}\)</span>
 </th>
-<th align="center">Definitions</th>
+<th align="left">Definitions</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="center"><span class="math inline">\(m_{\max}\)</span></td>
-<td align="center">max.splicing.iter</td>
-<td align="center">The maximum number of splicing algorithm</td>
+<td align="left"><span class="math inline">\(m_{\max}\)</span></td>
+<td align="left">max.splicing.iter</td>
+<td align="left">The maximum number of splicing algorithm</td>
 </tr>
 <tr class="even">
-<td align="center"><span class="math inline">\(k_{\max}\)</span></td>
-<td align="center">c.max</td>
-<td align="center">The maximum splicing size</td>
+<td align="left"><span class="math inline">\(k_{\max}\)</span></td>
+<td align="left">c.max</td>
+<td align="left">The maximum splicing size</td>
 </tr>
 <tr class="odd">
-<td align="center"><span class="math inline">\(1,\ldots,s_{\max}\)</span></td>
-<td align="center">support.size</td>
-<td align="center">A sequence representing the support sizes</td>
+<td align="left"><span class="math inline">\(1,\ldots,s_{\max}\)</span></td>
+<td align="left">support.size</td>
+<td align="left">A sequence representing the support sizes</td>
 </tr>
 <tr class="even">
-<td align="center"><span class="math inline">\(\operatorname{SIC}\)</span></td>
-<td align="center">tune.type</td>
-<td align="center">The type of criterion for choosing the support size</td>
+<td align="left"><span class="math inline">\(\operatorname{SIC}\)</span></td>
+<td align="left">tune.type</td>
+<td align="left">The type of criterion for choosing the support size</td>
 </tr>
 <tr class="odd">
-<td align="center"><span class="math inline">\(\{G_1, \ldots, G_J\}\)</span></td>
-<td align="center">group.index</td>
-<td align="center">A vector indicator the group that each variable belongs to</td>
+<td align="left"><span class="math inline">\(\{G_1, \ldots, G_J\}\)</span></td>
+<td align="left">group.index</td>
+<td align="left">A vector indicator the group that each variable belongs to</td>
 </tr>
 <tr class="even">
-<td align="center"><span class="math inline">\(\lambda\)</span></td>
-<td align="center">lambda</td>
-<td align="center">A value for regularized best subset selection</td>
+<td align="left"><span class="math inline">\(\lambda\)</span></td>
+<td align="left">lambda</td>
+<td align="left">A value for regularized best subset selection</td>
+</tr>
+<tr class="odd">
+<td align="left">Golden-section searching</td>
+<td align="left">gs.range</td>
+<td align="left">Upper and lower bounds of the search range</td>
 </tr>
 </tbody>
 </table>
