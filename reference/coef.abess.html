@@ -18,7 +18,7 @@ coefficients from a fitted "abess" object.'><meta property="og:image" content="h
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">abess</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.5</span>
       </span>
     </div>
 
@@ -27,7 +27,7 @@ coefficients from a fitted "abess" object.'><meta property="og:image" content="h
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -100,28 +100,37 @@ coefficients from a fitted "<code>abess</code>" object.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for abess</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">object</span>, support.size <span class="op">=</span> <span class="cn">NULL</span>, sparse <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for abess</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></span><span class="op">(</span><span class="va">object</span>, support.size <span class="op">=</span> <span class="cn">NULL</span>, sparse <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p>An "<code>abess</code>" project.</p></dd>
+
+
 <dt>support.size</dt>
 <dd><p>An integer vector specifies
 the coefficient fitted at given <code>support.size</code>.
 If <code>support.size = NULL</code>, then all coefficients would be returned.
 Default: <code>support.size = NULL</code>.</p></dd>
+
+
 <dt>sparse</dt>
 <dd><p>A logical value, specifying whether the coefficients should be
 presented as sparse matrix or not. Default: <code>sparse = TRUE</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other arguments.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A coefficient matrix when fitting an univariate model including gaussian, binomial, poisson, and cox;
+    
+
+<p>A coefficient matrix when fitting an univariate model including gaussian, binomial, poisson, and cox;
 otherwise, a list containing coefficient matrices.
 For a coefficient matrix, each row is a variable, and each column is a support size.</p>
     </div>
@@ -147,7 +156,7 @@ For a coefficient matrix, each row is a variable, and each column is a support s
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
